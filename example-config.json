@@ -1,0 +1,40 @@
+{
+	"rng_type": "hashed",
+	"max_seeds": 100,
+	"game_state": {
+		"multiplayer_id": -7347405514601242418,
+		"day": 1,
+		"daily_luck": 0.1,
+		"geodes_cracked": 1,
+		"deepest_mine_level": 0
+	},
+	"predictors": [
+		{
+			"type": "geode",
+			"item": "(O)378",
+			"quantity": 20,
+			"geode_type": "geode"
+		},
+		{
+			"type": "garbage",
+			"items": [
+				"(O)535",
+				"DISH_OF_THE_DAY"
+			]
+		},
+		{
+			"type": "day_range",
+			"start_day": 1,
+			"end_day": 12,
+			"min_matches": 4,
+			"child": {
+				"type": "weather",
+				"is_rain": true
+			}
+		},
+		{
+			"type": "night_event",
+			"event": "fairy"
+		}
+	]
+}

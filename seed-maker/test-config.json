@@ -1,0 +1,17 @@
+{
+	"rng_type": "hashed",
+	"max_seeds": 1,
+	"game_state": {
+		"multiplayer_id": -7347405514601242418,
+		"day": 7,
+		"daily_luck": 0.1,
+		"geodes_cracked": 1,
+		"deepest_mine_level": 0
+	},
+	"predictors": [
+		{
+			"type": "weather",
+			"is_rain": true
+		}
+	]
+}

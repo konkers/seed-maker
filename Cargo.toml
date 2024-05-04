@@ -1,0 +1,8 @@
+[workspace]
+resolver = "2"
+members = ["cli", "seed-maker"]
+
+[workspace.dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = { version = "1.0.115" }
+strum = { version = "0.24", features = ["derive"] }
