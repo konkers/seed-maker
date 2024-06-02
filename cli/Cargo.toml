@@ -11,4 +11,4 @@ clap = { version = "4.5.4", features = ["derive"] }
 cliclack = "0.2.5"
 seed-maker = { path = "../seed-maker" }
 serde_json = { workspace = true }
-strum = { workpace = true }
+strum = { workspace = true }
