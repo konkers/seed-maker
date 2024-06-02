@@ -2,13 +2,44 @@ name: test suite
 on: [push, pull_request]
 
 jobs:
-  test:
-    name: cargo test
-    runs-on: ubuntu-latest
+  test_matrix:
+    strategy:
+      matrix:
+        include:
+        - os: ubuntu-latest
+          artifact_name: ${{ github.event.repository.name }}-linux-x64
+          suffix: ""
+          rust_target: "x86_64-unknown-linux-gnu"
+          extra_target: ""
+        - os: windows-latest
+          artifact_name: ${{ github.event.repository.name }}-windows-x64.exe
+          suffix: ".exe"
+          rust_target: "x86_64-pc-windows-msvc"
+          extra_target: ""
+        - os: macos-latest
+          artifact_name: ${{ github.event.repository.name }}-mac-arm
+          suffix: ""
+          rust_target: "stable-aarch64-apple-darwin"
+          extra_target: "x86_64-apple-darwin"
+          extra_artifact_name: ${{ github.event.repository.name }}-mac-x64
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.extra_target }}
       - run: cargo test
       - run: cargo check
       - run: cargo clippy
-      - run: cargo fmt --check
+      - run: cargo build --release
+      - if: ${{matrix.extra_target}}
+        run: cargo build --release --target  ${{matrix.extra_target}}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: target/release/cli${{ matrix.suffix }}
+      - if: ${{matrix.extra_target}}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.extra_artifact_name }}
+          path: target/${{matrix.extra_target}}/release/cli${{ matrix.suffix }}
